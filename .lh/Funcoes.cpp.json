@@ -1,0 +1,106 @@
+{
+    "sourceFile": "Funcoes.cpp",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 22,
+            "patches": [
+                {
+                    "date": 1758157391249,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1758227651059,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,11 @@\n-template <typename Func, typename... Args>\n-double medirTempo(Func func, Args... args) {\n-    auto inicio = std::chrono::high_resolution_clock::now();\n-    func(args...);\n-    auto fim = std::chrono::high_resolution_clock::now();\n-\n-    std::chrono::duration<double, std::milli> duracao = fim - inicio;\n-    return duracao.count();\n+int buscaSequencialInversa(int v[], int n, int x) {\n+    // Começamos o loop do último elemento (índice n-1) até o primeiro (índice 0).\n+    for (int i = n - 1; i >= 0; i--) {\n+        // Se encontrarmos o elemento, retornamos o índice.\n+        if (v[i] == x) {\n+            return i;\n+        }\n+    }\n+    // Se o loop terminar e o elemento não for encontrado, retornamos -1.\n+    return -1;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1758227656771,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,6 @@\n+include \"Funcoes.h\"\n+\n int buscaSequencialInversa(int v[], int n, int x) {\n     // Começamos o loop do último elemento (índice n-1) até o primeiro (índice 0).\n     for (int i = n - 1; i >= 0; i--) {\n         // Se encontrarmos o elemento, retornamos o índice.\n"
+                },
+                {
+                    "date": 1758227685261,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,45 @@\n-include \"Funcoes.h\"\n+#include \"Funcoes.h\"\n \n+// Implementação da busca sequencial que começa do último elemento.\n int buscaSequencialInversa(int v[], int n, int x) {\n-    // Começamos o loop do último elemento (índice n-1) até o primeiro (índice 0).\n+    // Percorre o vetor do último elemento até o primeiro.\n     for (int i = n - 1; i >= 0; i--) {\n-        // Se encontrarmos o elemento, retornamos o índice.\n+        // Se o elemento for encontrado, retorna seu índice.\n         if (v[i] == x) {\n             return i;\n         }\n     }\n-    // Se o loop terminar e o elemento não for encontrado, retornamos -1.\n+    // Se o loop terminar sem encontrar o elemento, retorna -1.\n     return -1;\n+}\n+\n+// Implementação da busca binária.\n+// Assume que o vetor 'v' está ordenado.\n+int buscaBinaria(int v[], int n, int x) {\n+    int inicio = 0;\n+    int fim = n - 1;\n+\n+    // Continua a busca enquanto o intervalo 'inicio' e 'fim' for válido.\n+    while (inicio <= fim) {\n+        // Calcula o índice do meio.\n+        int meio = inicio + (fim - inicio) / 2;\n+\n+        // Se o elemento do meio é o que estamos procurando, retorna seu índice.\n+        if (v[meio] == x) {\n+            return meio;\n+        }\n+        // Se o elemento do meio é menor que o valor procurado, descarta a\n+        // primeira metade e continua a busca na segunda metade.\n+        if (v[meio] < x) {\n+            inicio = meio + 1;\n+        }\n+        // Caso contrário, o elemento do meio é maior, então descarta a\n+        // segunda metade e continua a busca na primeira.\n+        else {\n+            fim = meio - 1;\n+        }\n+    }\n+\n+    // Se o loop terminar, o elemento não foi encontrado.\n+    return -1;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1758227699884,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,16 +1,12 @@\n #include \"Funcoes.h\"\n \n-// Implementação da busca sequencial que começa do último elemento.\n int buscaSequencialInversa(int v[], int n, int x) {\n-    // Percorre o vetor do último elemento até o primeiro.\n     for (int i = n - 1; i >= 0; i--) {\n-        // Se o elemento for encontrado, retorna seu índice.\n         if (v[i] == x) {\n             return i;\n         }\n     }\n-    // Se o loop terminar sem encontrar o elemento, retorna -1.\n     return -1;\n }\n \n // Implementação da busca binária.\n"
+                },
+                {
+                    "date": 1758227710195,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,30 +8,24 @@\n     }\n     return -1;\n }\n \n-// Implementação da busca binária.\n-// Assume que o vetor 'v' está ordenado.\n+\n int buscaBinaria(int v[], int n, int x) {\n     int inicio = 0;\n     int fim = n - 1;\n \n-    // Continua a busca enquanto o intervalo 'inicio' e 'fim' for válido.\n     while (inicio <= fim) {\n-        // Calcula o índice do meio.\n         int meio = inicio + (fim - inicio) / 2;\n \n-        // Se o elemento do meio é o que estamos procurando, retorna seu índice.\n         if (v[meio] == x) {\n             return meio;\n         }\n-        // Se o elemento do meio é menor que o valor procurado, descarta a\n-        // primeira metade e continua a busca na segunda metade.\n+       \n         if (v[meio] < x) {\n             inicio = meio + 1;\n         }\n-        // Caso contrário, o elemento do meio é maior, então descarta a\n-        // segunda metade e continua a busca na primeira.\n+      \n         else {\n             fim = meio - 1;\n         }\n     }\n"
+                },
+                {
+                    "date": 1758249786720,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,7 +29,23 @@\n             fim = meio - 1;\n         }\n     }\n \n-    // Se o loop terminar, o elemento não foi encontrado.\n     return -1;\n+}\n+\n+void gerarGrafico(const string& titulo, const map<int, double>& dados) {\n+    vector<int> tamanhos;\n+    vector<double> tempos;\n+\n+    for(const auto& par : dados) {\n+        tamanhos.push_back(par.first);\n+        tempos.push_back(par.second);\n+    }\n+\n+    plt::plot(tamanhos, tempos, \"bo-\"); // \"b\" para azul, \"o\" para pontos, \"-\" para linha\n+    plt::xlabel(\"Tamanho do Array (N)\");\n+    plt::ylabel(\"Tempo Médio (ms)\");\n+    plt::title(titulo);\n+    plt::grid(true);\n+    plt::show();\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1758250175344,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n     return -1;\n }\n \n void gerarGrafico(const string& titulo, const map<int, double>& dados) {\n-    vector<int> tamanhos;\n+    vector<int> tamanhos;\n     vector<double> tempos;\n \n     for(const auto& par : dados) {\n         tamanhos.push_back(par.first);\n"
+                },
+                {
+                    "date": 1758250180840,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,12 +34,12 @@\n }\n \n void gerarGrafico(const string& titulo, const map<int, double>& dados) {\n     vector<int> tamanhos;\n-    vector<double> tempos;\n+    vector<double> tempos;\n \n-    for(const auto& par : dados) {\n-        tamanhos.push_back(par.first);\n+    for(const auto& par : dados) {\n+     tamanhos.push_back(par.first);\n         tempos.push_back(par.second);\n     }\n \n     plt::plot(tamanhos, tempos, \"bo-\"); // \"b\" para azul, \"o\" para pontos, \"-\" para linha\n"
+                },
+                {
+                    "date": 1758250186950,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,11 +37,11 @@\n     vector<int> tamanhos;\n     vector<double> tempos;\n \n     for(const auto& par : dados) {\n-     tamanhos.push_back(par.first);\n-        tempos.push_back(par.second);\n-    }\n+        tamanhos.push_back(par.first);\n+        tempos.push_back(par.second);\n+     }\n \n     plt::plot(tamanhos, tempos, \"bo-\"); // \"b\" para azul, \"o\" para pontos, \"-\" para linha\n     plt::xlabel(\"Tamanho do Array (N)\");\n     plt::ylabel(\"Tempo Médio (ms)\");\n"
+                },
+                {
+                    "date": 1758250192109,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,11 +39,11 @@\n \n     for(const auto& par : dados) {\n         tamanhos.push_back(par.first);\n         tempos.push_back(par.second);\n-     }\n+    }\n \n-    plt::plot(tamanhos, tempos, \"bo-\"); // \"b\" para azul, \"o\" para pontos, \"-\" para linha\n+    plt::plot(tamanhos, tempos, \"bo-\"); // \"b\" para azul, \"o\" para pontos, \"-\" para linha\n     plt::xlabel(\"Tamanho do Array (N)\");\n     plt::ylabel(\"Tempo Médio (ms)\");\n     plt::title(titulo);\n     plt::grid(true);\n"
+                },
+                {
+                    "date": 1758250197329,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,10 +42,10 @@\n         tempos.push_back(par.second);\n     }\n \n     plt::plot(tamanhos, tempos, \"bo-\"); // \"b\" para azul, \"o\" para pontos, \"-\" para linha\n-    plt::xlabel(\"Tamanho do Array (N)\");\n-    plt::ylabel(\"Tempo Médio (ms)\");\n+    plt::xlabel(\"Tamanho do Array (N)\");\n+    plt::ylabel(\"Tempo Médio (ms)\");\n     plt::title(titulo);\n     plt::grid(true);\n     plt::show();\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1758250199127,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,8 +44,8 @@\n \n     plt::plot(tamanhos, tempos, \"bo-\"); // \"b\" para azul, \"o\" para pontos, \"-\" para linha\n     plt::xlabel(\"Tamanho do Array (N)\");\n     plt::ylabel(\"Tempo Médio (ms)\");\n-    plt::title(titulo);\n+    plt::title(titulo);\n     plt::grid(true);\n     plt::show();\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1758250205746,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,11 +41,11 @@\n         tamanhos.push_back(par.first);\n         tempos.push_back(par.second);\n     }\n \n-    plt::plot(tamanhos, tempos, \"bo-\"); // \"b\" para azul, \"o\" para pontos, \"-\" para linha\n+    plt::plot(tamanhos, tempos, \"bo-\"); \n     plt::xlabel(\"Tamanho do Array (N)\");\n     plt::ylabel(\"Tempo Médio (ms)\");\n     plt::title(titulo);\n-    plt::grid(true);\n-    plt::show();\n+    plt::grid(true);\n+    plt::show();\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1758250256695,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n #include \"Funcoes.h\"\n+namespace plt = matplotlibcpp;\n \n+\n int buscaSequencialInversa(int v[], int n, int x) {\n     for (int i = n - 1; i >= 0; i--) {\n         if (v[i] == x) {\n             return i;\n"
+                },
+                {
+                    "date": 1758250323749,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,21 +33,4 @@\n     }\n \n     return -1;\n }\n-\n-void gerarGrafico(const string& titulo, const map<int, double>& dados) {\n-    vector<int> tamanhos;\n-    vector<double> tempos;\n-\n-    for(const auto& par : dados) {\n-        tamanhos.push_back(par.first);\n-        tempos.push_back(par.second);\n-    }\n-\n-    plt::plot(tamanhos, tempos, \"bo-\"); \n-    plt::xlabel(\"Tamanho do Array (N)\");\n-    plt::ylabel(\"Tempo Médio (ms)\");\n-    plt::title(titulo);\n-    plt::grid(true);\n-    plt::show();\n-}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1758250427387,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,6 @@\n #include \"Funcoes.h\"\n-namespace plt = matplotlibcpp;\n \n-\n int buscaSequencialInversa(int v[], int n, int x) {\n     for (int i = n - 1; i >= 0; i--) {\n         if (v[i] == x) {\n             return i;\n@@ -10,27 +8,21 @@\n     }\n     return -1;\n }\n \n-\n int buscaBinaria(int v[], int n, int x) {\n     int inicio = 0;\n     int fim = n - 1;\n-\n     while (inicio <= fim) {\n         int meio = inicio + (fim - inicio) / 2;\n-\n         if (v[meio] == x) {\n             return meio;\n         }\n-       \n         if (v[meio] < x) {\n             inicio = meio + 1;\n         }\n-      \n         else {\n             fim = meio - 1;\n         }\n     }\n-\n     return -1;\n-}\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1758250550143,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n #include \"Funcoes.h\"\n+namespace plt = matplotlibcpp;\n \n+\n int buscaSequencialInversa(int v[], int n, int x) {\n     for (int i = n - 1; i >= 0; i--) {\n         if (v[i] == x) {\n             return i;\n@@ -8,21 +10,27 @@\n     }\n     return -1;\n }\n \n+\n int buscaBinaria(int v[], int n, int x) {\n     int inicio = 0;\n     int fim = n - 1;\n+\n     while (inicio <= fim) {\n         int meio = inicio + (fim - inicio) / 2;\n+\n         if (v[meio] == x) {\n             return meio;\n         }\n+       \n         if (v[meio] < x) {\n             inicio = meio + 1;\n         }\n+      \n         else {\n\\ No newline at end of file\n             fim = meio - 1;\n         }\n     }\n+\n     return -1;\n-}\n+}\n"
+                },
+                {
+                    "date": 1758250610671,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,6 @@\n #include \"Funcoes.h\"\n-namespace plt = matplotlibcpp;\n \n-\n int buscaSequencialInversa(int v[], int n, int x) {\n     for (int i = n - 1; i >= 0; i--) {\n         if (v[i] == x) {\n             return i;\n@@ -10,27 +8,21 @@\n     }\n     return -1;\n }\n \n-\n int buscaBinaria(int v[], int n, int x) {\n     int inicio = 0;\n     int fim = n - 1;\n-\n     while (inicio <= fim) {\n         int meio = inicio + (fim - inicio) / 2;\n-\n         if (v[meio] == x) {\n             return meio;\n         }\n-       \n         if (v[meio] < x) {\n             inicio = meio + 1;\n         }\n-      \n         else {\n             fim = meio - 1;\n         }\n     }\n-\n     return -1;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1758251915792,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,5 +24,31 @@\n             fim = meio - 1;\n         }\n     }\n     return -1;\n+}\n+\n+void gerarGrafico(const string& titulo, const map<int, double>& dados) {\n+    // Abre o pipe para o gnuplot\n+    FILE* gnuplotPipe = popen(\"gnuplot -persistent\", \"w\");\n+    if (!gnuplotPipe) {\n+        cerr << \"Erro ao abrir gnuplot\" << endl;\n+        return;\n+    }\n+\n+    // Configurações do gráfico\n+    fprintf(gnuplotPipe, \"set title '%s'\\n\", titulo.c_str());\n+    fprintf(gnuplotPipe, \"set xlabel 'Tamanho do Array (N)'\\n\");\n+    fprintf(gnuplotPipe, \"set ylabel 'Tempo Medio (ms)'\\n\");\n+    fprintf(gnuplotPipe, \"set grid\\n\");\n+    fprintf(gnuplotPipe, \"plot '-' with linespoints title '%s'\\n\", titulo.c_str());\n+\n+    // Envia os dados para o gnuplot\n+    for (auto& par : dados) {\n+        fprintf(gnuplotPipe, \"%d %f\\n\", par.first, par.second);\n+    }\n+    fprintf(gnuplotPipe, \"e\\n\");  // marca o fim dos dados\n+    fflush(gnuplotPipe);          // garante envio\n+\n+    // Fecha o pipe\n+    pclose(gnuplotPipe);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1758251978543,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,9 @@\n #include \"Funcoes.h\"\n+#include <map>\n+#include <string>\n+#include <cstdio>   // para FILE*, fprintf, popen, pclose\n+#include <iostream>\n \n int buscaSequencialInversa(int v[], int n, int x) {\n     for (int i = n - 1; i >= 0; i--) {\n         if (v[i] == x) {\n"
+                },
+                {
+                    "date": 1758329631566,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,16 +31,14 @@\n     return -1;\n }\n \n void gerarGrafico(const string& titulo, const map<int, double>& dados) {\n-    // Abre o pipe para o gnuplot\n     FILE* gnuplotPipe = popen(\"gnuplot -persistent\", \"w\");\n     if (!gnuplotPipe) {\n         cerr << \"Erro ao abrir gnuplot\" << endl;\n         return;\n     }\n \n-    // Configurações do gráfico\n     fprintf(gnuplotPipe, \"set title '%s'\\n\", titulo.c_str());\n     fprintf(gnuplotPipe, \"set xlabel 'Tamanho do Array (N)'\\n\");\n     fprintf(gnuplotPipe, \"set ylabel 'Tempo Medio (ms)'\\n\");\n     fprintf(gnuplotPipe, \"set grid\\n\");\n"
+                },
+                {
+                    "date": 1758329637078,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,14 +43,12 @@\n     fprintf(gnuplotPipe, \"set ylabel 'Tempo Medio (ms)'\\n\");\n     fprintf(gnuplotPipe, \"set grid\\n\");\n     fprintf(gnuplotPipe, \"plot '-' with linespoints title '%s'\\n\", titulo.c_str());\n \n-    // Envia os dados para o gnuplot\n     for (auto& par : dados) {\n         fprintf(gnuplotPipe, \"%d %f\\n\", par.first, par.second);\n     }\n-    fprintf(gnuplotPipe, \"e\\n\");  // marca o fim dos dados\n-    fflush(gnuplotPipe);          // garante envio\n+    fprintf(gnuplotPipe, \"e\\n\");  \n+    fflush(gnuplotPipe);          \n \n-    // Fecha o pipe\n     pclose(gnuplotPipe);\n }\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1758157391249,
+            "name": "Commit-0",
+            "content": "template <typename Func, typename... Args>\ndouble medirTempo(Func func, Args... args) {\n    auto inicio = std::chrono::high_resolution_clock::now();\n    func(args...);\n    auto fim = std::chrono::high_resolution_clock::now();\n\n    std::chrono::duration<double, std::milli> duracao = fim - inicio;\n    return duracao.count();\n}"
+        }
+    ]
+}
